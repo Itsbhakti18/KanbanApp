@@ -1,484 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swift Kanban</title>
 
-    <!-- Google Font -->
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- Font Awesome -->
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- Chart -->
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <link rel="stylesheet"
-          href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<div class="app">
-
-<!-- ================= SIDEBAR ================= -->
-
-<aside class="sidebar">
-
-    <div class="logo">
-
-        <i class="fa-solid fa-layer-group"></i>
-
-        <div>
-
-            <h2>Swift Kanban</h2>
-
-            <span>Productivity Workspace</span>
-
-        </div>
-
-    </div>
-
-    <!-- Greeting -->
-
-    <div class="welcome-card">
-
-        <h3 id="greeting">Good Evening 👋</h3>
-
-        <p id="todayDate"></p>
-
-    </div>
-
-    <!-- Dashboard -->
-
-    <div class="dashboard-title">
-
-        <h3>Dashboard</h3>
-
-    </div>
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-list-check"></i>
-
-            <h2 id="totalTasks">0</h2>
-
-            <p>Total</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-fire"></i>
-
-            <h2 id="highCount">0</h2>
-
-            <p>High</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-spinner"></i>
-
-            <h2 id="doingCount">0</h2>
-
-            <p>Doing</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <i class="fa-solid fa-circle-check"></i>
-
-            <h2 id="doneCount">0</h2>
-
-            <p>Done</p>
-
-        </div>
-
-    </div>
-
-    <!-- Progress -->
-
-    <div class="progress-card">
-
-        <div class="progress-title">
-
-            <span>Progress</span>
-
-            <span id="progressPercent">0%</span>
-
-        </div>
-
-        <div class="progress">
-
-            <div class="progress-fill"
-                 id="progressFill"></div>
-
-        </div>
-
-    </div>
-
-    <!-- Chart -->
-
-    <div class="analytics-card">
-
-        <h3>Task Analytics</h3>
-
-        <canvas id="taskChart"></canvas>
-
-    </div>
-
-    <!-- ================= Profile ================= -->
-
-<div class="profile-card">
-
-    <div class="profile-info">
-
-        <div class="profile-avatar">
-
-            B
-
-        </div>
-
-        <div>
-
-            <h4>Bhakti</h4>
-
-            <p>Frontend Developer</p>
-
-        </div>
-
-    </div>
-
-    <div class="profile-status">
-
-        <span class="status-dot"></span>
-
-        Online
-
-    </div>
-
-</div>
-
-</aside>
-
-<!-- ================= MAIN ================= -->
-
-<main class="main">
-
-<header>
-
-    <div class="header-left">
-
-        <button
-            id="menuToggle"
-            class="menu-btn">
-
-            <i class="fa-solid fa-bars"></i>
-
-        </button>
-
-        <div>
-
-    <h1>Workspace</h1>
-
-    <span>Manage projects, tasks and productivity.</span>
-
-</div>
-
-    </div>
-
-    <div class="header-actions">
-
-        <div class="search-box">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                id="searchTask"
-                type="text"
-                placeholder="Search task...">
-
-        </div>
-
-        <select id="priorityFilter">
-
-            <option value="all">All Priority</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-
-        </select>
-
-        <button
-            id="themeToggle"
-            class="theme-btn">
-
-            <i class="fa-solid fa-moon"></i>
-
-        </button>
-
-        <button
-            id="openModal"
-            class="new-task">
-
-            <i class="fa-solid fa-plus"></i>
-
-            New Task
-
-        </button>
-
-    </div>
-
-</header>
-
-<section class="hero">
-
-    <div class="hero-left">
-
-        <h1 id="heroGreeting">
-
-            Good Evening, Bhakti 👋
-
-        </h1>
-
-        <p>
-
-            Every completed task is one step closer to your goals.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <button class="hero-btn">
-
-                <i class="fa-solid fa-plus"></i>
-
-                New Task
-
-            </button>
-
-            <button class="secondary-btn">
-
-                <i class="fa-solid fa-chart-simple"></i>
-
-                Analytics
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <div class="hero-right">
-
-        <div class="date-card">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <div>
-
-                <span>Today</span>
-
-                <h3 id="heroDate"></h3>
-
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="layout-dashboard"></i>
+                </div>
+                <div>
+                    <h2>Swift</h2>
+                    <span>Kanban Workspace</span>
+                </div>
             </div>
 
-        </div>
+            <div class="welcome-card">
+                <h3 id="greeting">Good Evening 👋</h3>
+                <p id="todayDate"></p>
+            </div>
 
-        <div class="quote-card">
+            <div class="sidebar-section">
+                <p class="section-title">Workspace</p>
+                <a href="#" class="nav-item active"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+                <a href="#" class="nav-item"><i data-lucide="list-todo"></i><span>Tasks</span></a>
+                <a href="#" class="nav-item"><i data-lucide="activity"></i><span>Activity</span></a>
+                <a href="#" class="nav-item"><i data-lucide="calendar-days"></i><span>Calendar</span></a>
+                <a href="#" class="nav-item"><i data-lucide="chart-column"></i><span>Reports</span></a>
+                <a href="#" class="nav-item"><i data-lucide="settings-2"></i><span>Settings</span></a>
+            </div>
 
-            ✨
+            <div class="sidebar-section">
+                <p class="section-title">Statistics</p>
+                <div class="mini-stat">
+                    <div class="mini-stat-top">
+                        <span>Progress</span>
+                        <strong id="progressPercent">0%</strong>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
 
-            <p>
+                <div class="analytics-card">
+                    <h3>Analytics</h3>
+                    <canvas id="taskChart"></canvas>
+                </div>
+            </div>
 
-                Small progress every day leads to big results.
+            <div class="profile-card">
+                <div class="profile-info">
+                    <div class="profile-avatar">B</div>
+                    <div>
+                        <h4>Bhakti</h4>
+                        <p>Frontend Developer</p>
+                    </div>
+                </div>
+                <div class="profile-status">
+                    <span class="status-dot"></span>
+                    Online
+                </div>
+            </div>
+        </aside>
 
-            </p>
+        <main class="main">
+            <header class="topbar">
+                <div class="header-left">
+                    <button id="menuToggle" class="menu-btn">
+                        <i data-lucide="panel-left"></i>
+                    </button>
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Manage your projects</p>
+                    </div>
+                </div>
 
-        </div>
+                <div class="header-actions">
+                    <label class="search-box">
+                        <i data-lucide="search"></i>
+                        <input id="searchTask" type="text" placeholder="Search task...">
+                    </label>
 
+                    <select id="priorityFilter" class="select-pill">
+                        <option value="all">Priority</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                    <button class="ghost-btn" id="sortToggle">
+                        <i data-lucide="arrow-up-down"></i>
+                        <span>Sort</span>
+                    </button>
+
+                    <button id="themeToggle" class="icon-btn">
+                        <i data-lucide="moon-star"></i>
+                    </button>
+
+                    <button id="openModal" class="new-task">
+                        <i data-lucide="circle-plus"></i>
+                        <span>Create Task</span>
+                    </button>
+                </div>
+            </header>
+
+            <section class="hero">
+                <div>
+                    <h2 id="heroGreeting">Good Evening, Bhakti 👋</h2>
+                    <p>Keep your day organized with a calm, focused workspace.</p>
+                </div>
+                <div class="hero-meta">
+                    <div class="summary-pill">
+                        <i data-lucide="calendar-days"></i>
+                        <span id="heroDate"></span>
+                    </div>
+                    <div class="summary-pill muted">
+                        <i data-lucide="sparkles"></i>
+                        <span>Weekly focus</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-top">
+                        <span class="stat-label">Total Tasks</span>
+                        <i data-lucide="list-todo"></i>
+                    </div>
+                    <h2 id="totalTasks">0</h2>
+                    <p>Everything in view</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-top">
+                        <span class="stat-label">Today's Tasks</span>
+                        <i data-lucide="calendar-days"></i>
+                    </div>
+                    <h2 id="todayTasksCount">0</h2>
+                    <p>Scheduled for today</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-top">
+                        <span class="stat-label">In Progress</span>
+                        <i data-lucide="loader-circle"></i>
+                    </div>
+                    <h2 id="doingCount">0</h2>
+                    <p>Currently moving</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-top">
+                        <span class="stat-label">Completed</span>
+                        <i data-lucide="circle-check-big"></i>
+                    </div>
+                    <h2 id="doneCount">0</h2>
+                    <p>Finished work</p>
+                </div>
+            </section>
+
+            <section class="board">
+                <div class="column" id="todo">
+                    <div class="column-header">
+                        <h3>To Do</h3>
+                        <span class="count">0</span>
+                    </div>
+                    <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                </div>
+
+                <div class="column" id="doing">
+                    <div class="column-header">
+                        <h3>Doing</h3>
+                        <span class="count">0</span>
+                    </div>
+                    <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                </div>
+
+                <div class="column" id="done">
+                    <div class="column-header">
+                        <h3>Done</h3>
+                        <span class="count">0</span>
+                    </div>
+                    <div class="task-list" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+                </div>
+            </section>
+        </main>
     </div>
 
-</section>
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <h2>Create New Task</h2>
+            <input id="taskTitle" type="text" placeholder="Task Title">
+            <textarea id="taskDesc" placeholder="Task Description"></textarea>
+            <select id="taskPriority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <input id="taskDate" type="date">
 
-<section class="hero">
-
-    <div>
-
-        <h1 id="heroGreeting">
-            Good Evening, Bhakti 👋
-        </h1>
-
-        <p>
-            Stay focused and complete your goals today.
-        </p>
-
+            <div class="modal-buttons">
+                <button id="cancelBtn">Cancel</button>
+                <button id="saveTask">Save Task</button>
+            </div>
+        </div>
     </div>
 
-    <div class="hero-right">
-
-        <div class="today-card">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            <span id="heroDate"></span>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ================= BOARD ================= -->
-
-<section class="board">
-
-    <!-- TO DO -->
-
-    <div class="column"
-         id="todo">
-
-        <div class="column-header">
-
-            <h3>To Do</h3>
-
-            <span class="count">0</span>
-
-        </div>
-
-        <div class="task-list"
-
-             ondragover="allowDrop(event)"
-
-             ondrop="drop(event)">
-
-        </div>
-
-    </div>
-
-    <!-- DOING -->
-
-    <div class="column"
-         id="doing">
-
-        <div class="column-header">
-
-            <h3>Doing</h3>
-
-            <span class="count">0</span>
-
-        </div>
-
-        <div class="task-list"
-
-             ondragover="allowDrop(event)"
-
-             ondrop="drop(event)">
-
-        </div>
-
-    </div>
-
-    <!-- DONE -->
-
-    <div class="column"
-         id="done">
-
-        <div class="column-header">
-
-            <h3>Done</h3>
-
-            <span class="count">0</span>
-
-        </div>
-
-        <div class="task-list"
-
-             ondragover="allowDrop(event)"
-
-             ondrop="drop(event)">
-
-        </div>
-
-    </div>
-
-</section>
-
-</main>
-
-</div>
-
-<!-- ================= MODAL ================= -->
-
-<div
-    class="modal"
-    id="taskModal">
-
-    <div class="modal-content">
-
-        <h2>Create New Task</h2>
-
-        <input
-            id="taskTitle"
-            type="text"
-            placeholder="Task Title">
-
-        <textarea
-            id="taskDesc"
-            placeholder="Task Description"></textarea>
-
-        <select id="taskPriority">
-
-            <option value="High">🔴 High</option>
-
-            <option value="Medium">🟡 Medium</option>
-
-            <option value="Low">🟢 Low</option>
-
-        </select>
-
-        <input
-            id="taskDate"
-            type="date">
-
-        <div class="modal-buttons">
-
-            <button id="cancelBtn">
-
-                Cancel
-
-            </button>
-
-            <button id="saveTask">
-
-                Save Task
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
